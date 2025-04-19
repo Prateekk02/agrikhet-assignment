@@ -1,0 +1,51 @@
+enum OrderStatus{
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum PaymentStatus{
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+
+model Orders{
+  id String @id @default(uuid()) @db.Uuid
+  user_id String? @db.Uuid
+  cart_id String @db.Uuid
+  order_number String @unique
+  status OrderStatus
+  total_amount Decimal
+  shipping_amount Decimal
+  tax_amount Decimal
+  discount_amount Decimal
+  shipping_address_id String @db.Uuid
+  billing_address_id String @db.Uuid
+  payment_status PaymentStatus
+  payment_method String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  shipping_address Address @relation("ShippingAddress", fields: [shipping_address_id], references: [id])
+  billing_address  Address @relation("BillingAddress", fields: [billing_address_id], references: [id])
+  carts Carts @relation(fields: [cart_id], references: [id])
+  user User? @relation(fields: [user_id], references: [id])
+  order_items OrderItems[]
+}
+
+model OrderItems{
+  id String @id @default(uuid()) @db.Uuid
+  order_id String @db.Uuid
+  product_variant_id String @db.Uuid
+  quantity Int
+  unit_price Decimal
+  total_price Decimal
+  created_at DateTime @default(now())
+  product_variant ProductVariants @relation(fields: [product_variant_id], references: [id])
+  orders Orders @relation(fields: [order_id], references: [id])
+  @@unique([order_id, product_variant_id])
+}

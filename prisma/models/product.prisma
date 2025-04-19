@@ -1,0 +1,55 @@
+model Products{
+  id String @id @default(uuid()) @db.Uuid
+  name String
+  slug String @unique
+  description String @db.Text
+  price Decimal
+  inventory_quantity Int
+  is_available Boolean
+  category_id String @db.Uuid
+  category Category @relation(fields: [category_id], references: [id])
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  product_images ProductImages[] 
+  product_variant ProductVariants[]
+}
+
+model ProductImages{
+  id String @id @default(uuid()) @db.Uuid
+  product_id String @db.Uuid 
+  url String
+  is_primary Boolean
+  display_order Int @default(0)
+  created_at DateTime @default(now())
+  product Products @relation(fields: [product_id], references: [id])
+}
+
+model ProductVariants{
+  id String @id @default(uuid()) @db.Uuid
+  product_id String @db.Uuid
+  name String
+  sku String @unique
+  price Decimal? 
+  inventory_quantity Int
+  option1_value String?
+  option2_value String?
+  option3_value String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt 
+  product Products @relation(fields: [product_id], references: [id])
+  cart_items CartItems[]
+  order_items OrderItems[]
+}
+
+model Category{
+  id String @id @default(uuid()) @db.Uuid
+  name String
+  slug String @unique
+  description String? @db.Text
+  image_url String?
+  display_order Int @default(0)
+  parent_id String?
+  parent Category? @relation("CategoryToSubcategory", fields: [parent_id], references: [id], onDelete: SetNull)
+  subcategories Category[] @relation("CategoryToSubcategory") 
+  products Products[]
+}
