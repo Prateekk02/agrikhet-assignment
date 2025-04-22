@@ -43,7 +43,7 @@ model Carts {
   created_at DateTime    @default(now())
   updated_at DateTime    @updatedAt
   status     Status
-  users      User?       @relation(fields: [user_id], references: [id])
+  user       User?       @relation(fields: [user_id], references: [id])
   session    Session     @relation(fields: [session_id], references: [id])
   cart_items CartItems[]
   orders     Orders[]
@@ -162,7 +162,7 @@ model Category {
   description   String?    @db.Text
   image_url     String?
   display_order Int        @default(0)
-  parent_id     String?
+  parent_id     String?    @db.Uuid
   parent        Category?  @relation("CategoryToSubcategory", fields: [parent_id], references: [id], onDelete: SetNull)
   subcategories Category[] @relation("CategoryToSubcategory")
   products      Products[]

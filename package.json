@@ -9,7 +9,7 @@
     "lint": "next lint",
     "prisma:merge": "node prisma/mergeSchemas.js",
     "prisma:generate": "prisma generate",
-    "gen:schema": "cd ./prisma/models && rm -rf ../schema.prisma && cat *.prisma >> ../schema.prisma && cd .. && prisma format"
+    "merge-prisma": "cat prisma/config.prisma > prisma/schema.prisma && cat prisma/models/*.prisma >> prisma/schema.prisma && npx prisma format"
   },
   "dependencies": {
     "@prisma/client": "^6.6.0",

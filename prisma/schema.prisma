@@ -1,3 +1,12 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
 model Address {
   id                  String   @id @default(uuid()) @db.Uuid
   user_id             String?  @db.Uuid
@@ -48,17 +57,6 @@ model CartItems {
 
   @@unique([cart_id, product_variant_id])
 }
-
-generator client {
-  provider = "prisma-client-js"
-  output   = "../lib/generated/prisma"
-}
-
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
 enum OrderStatus {
   PENDING
   PROCESSING
@@ -161,7 +159,7 @@ model Category {
   description   String?    @db.Text
   image_url     String?
   display_order Int        @default(0)
-  parent_id     String?
+  parent_id     String?    @db.Uuid
   parent        Category?  @relation("CategoryToSubcategory", fields: [parent_id], references: [id], onDelete: SetNull)
   subcategories Category[] @relation("CategoryToSubcategory")
   products      Products[]
