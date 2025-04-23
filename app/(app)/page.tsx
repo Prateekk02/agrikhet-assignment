@@ -1,11 +1,6 @@
 import React from 'react'
-import { ThemeToggle } from '@/components/ui/ThemeToggle'
+import HeroWithLoading from '@/components/HeroWithLoading'
 
-export default function Hero() {
-  return (
-    <div>Hero
-
-      <ThemeToggle />
-    </div>
-  )
+export default function Page() {
+  return <HeroWithLoading />
 }
