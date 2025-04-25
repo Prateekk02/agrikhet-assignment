@@ -44,12 +44,12 @@ export function NavigationBar() {
             <>
               <NavbarLogo />
               
-              {/* Search Bar instead of nav items */}
-              <div className="absolute inset-0 flex flex-1 items-center justify-center">
+              {/* Search Bar - Adjusted width and positioning */}
+              <div className="flex flex-1 items-center justify-center">
                 <motion.div 
-                  className="w-1/2 max-w-md"
+                  className="w-full max-w-sm"
                   animate={{
-                    width: visible ? "50%" : "70%",
+                    width: visible ? "90%" : "95%",
                     scale: visible ? 0.9 : 1,
                   }}
                   transition={{
