@@ -19,7 +19,7 @@ export function NavigationBar() {
   const navItems = [
     {
       name: "Home",
-      link: "#features",
+      link: "#home",
     },
     {
       name: "Blogs",

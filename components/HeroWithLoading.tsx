@@ -5,7 +5,7 @@ import { NavigationBar } from '@/components/NavigationBar'
 import { Footer2 } from '@/components/Footer'
 import { BackgroundBeams } from "@/components/ui/background-beams"
 import { motion, AnimatePresence } from "motion/react"
-
+import CategoryBar from './CategoryBar'
 const HeroWithLoading = React.memo(function HeroWithLoading() {
   const [isLoading, setIsLoading] = useState(true)
   const [isFading, setIsFading] = useState(false)
@@ -47,7 +47,7 @@ const HeroWithLoading = React.memo(function HeroWithLoading() {
           <NavigationBar />
         </motion.div>
         <main className='h-screen'>
-          
+            <CategoryBar />
         </main>
         <Footer2 />
         <BackgroundBeams />
